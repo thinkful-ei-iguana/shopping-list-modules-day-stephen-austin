@@ -20,18 +20,14 @@ const addItem = function(name) {
 }
 
 const findAndToggleChecked = function(id) {
-  this.findById(id).toggle(items.checked);
+  let item = findById(id);
+  item.checked = !item.checked;
 }
 
 const findAndUpdateName = function(id, newName) {
-  try {
     item.validateName(newName);
-    const item = findById(id);
-    item.name = newName;
-  }
-    catch {
-      console.log(`Cannot update name: ${error.message}`);
-    }
+    const changeItem = findById(id);
+    changeItem.name = newName;
 }
 
 const findAndDelete = function(id) {
