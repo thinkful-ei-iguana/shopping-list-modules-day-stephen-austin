@@ -1,6 +1,6 @@
 import store from './store.js';
 import item from './item.js';
-
+ 
 const generateItemElement = function (item) {
   let itemTitle = `<span class="shopping-item shopping-item__checked">${item.name}</span>`;
   if (!item.checked) {
@@ -10,7 +10,7 @@ const generateItemElement = function (item) {
       </form>
     `;
   }
-
+ 
   return `
     <li class="js-item-element" data-item-id="${item.id}">
       ${itemTitle}
@@ -24,12 +24,12 @@ const generateItemElement = function (item) {
       </div>
     </li>`;
 };
-
+ 
 const generateShoppingItemsString = function (shoppingList) {
   const items = shoppingList.map((item) => generateItemElement(item));
   return items.join('');
 };
-
+ 
 const render = function () {
   // Filter item list if store prop is true by item.checked === false
   let items = [...store.items];
@@ -41,7 +41,7 @@ const render = function () {
   // insert that HTML into the DOM
   $('.js-shopping-list').html(shoppingListItemsString);
 };
-
+ 
 const addItemToShoppingList = function (itemName) {
   try {
     item.validateName(itemName);
@@ -53,7 +53,7 @@ const addItemToShoppingList = function (itemName) {
     console.log(`Cannot add item: ${error.message}`);
   }
 };
-
+ 
 const handleNewItemSubmit = function () {
   $('#js-shopping-list-form').submit(function (event) {
     event.preventDefault();
@@ -63,7 +63,7 @@ const handleNewItemSubmit = function () {
     render();
   });
 };
-
+ 
 const handleItemCheckClicked = function () {
   $('.js-shopping-list').on('click', '.js-item-toggle', event => {
     const id = getItemIdFromElement(event.currentTarget);
@@ -71,13 +71,13 @@ const handleItemCheckClicked = function () {
     render();
   });
 };
-
+ 
 const getItemIdFromElement = function (item) {
   return $(item)
     .closest('.js-item-element')
     .data('item-id');
 };
-
+ 
 const handleDeleteItemClicked = function () {
   // like in `handleItemCheckClicked`, we use event delegation
   $('.js-shopping-list').on('click', '.js-item-delete', event => {
@@ -89,14 +89,14 @@ const handleDeleteItemClicked = function () {
     render();
   });
 };
-
+ 
 /**
  * Toggles the store.hideCheckedItems property
  */
 const toggleCheckedItemsFilter = function () {
   store.hideCheckedItems = !store.hideCheckedItems;
 };
-
+ 
 /**
  * Places an event listener on the checkbox
  * for hiding completed items.
@@ -107,7 +107,7 @@ const handleToggleFilterClick = function () {
     render();
   });
 };
-
+ 
 const handleEditShoppingItemSubmit = function () {
   $('.js-shopping-list').on('submit', '.js-edit-item', event => {
     event.preventDefault();
@@ -117,7 +117,7 @@ const handleEditShoppingItemSubmit = function () {
     render();
   });
 };
-
+ 
 const bindEventListeners = function () {
   handleNewItemSubmit();
   handleItemCheckClicked();
@@ -125,7 +125,7 @@ const bindEventListeners = function () {
   handleEditShoppingItemSubmit();
   handleToggleFilterClick();
 };
-
+ 
 // This object contains the only exposed methods from this module:
 export default {
   render,
